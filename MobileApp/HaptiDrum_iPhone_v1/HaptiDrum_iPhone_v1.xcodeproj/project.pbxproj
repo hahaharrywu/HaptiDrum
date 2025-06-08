@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		A682133B2DBB0147009B65B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A682131C2DBB0146009B65B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A68213232DBB0146009B65B6;
+			remoteInfo = HaptiDrum_iPhone_v1;
+		};
+		A68213452DBB0147009B65B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A682131C2DBB0146009B65B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A68213232DBB0146009B65B6;
+			remoteInfo = HaptiDrum_iPhone_v1;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A68213242DBB0146009B65B6 /* HaptiDrum_iPhone_v1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaptiDrum_iPhone_v1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A682133A2DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaptiDrum_iPhone_v1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A68213442DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaptiDrum_iPhone_v1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A682134C2DBB0147009B65B6 /* Exceptions for "HaptiDrum_iPhone_v1" folder in "HaptiDrum_iPhone_v1" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A68213232DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A68213262DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A682134C2DBB0147009B65B6 /* Exceptions for "HaptiDrum_iPhone_v1" folder in "HaptiDrum_iPhone_v1" target */,
+			);
+			path = HaptiDrum_iPhone_v1;
+			sourceTree = "<group>";
+		};
+		A682133D2DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HaptiDrum_iPhone_v1Tests;
+			sourceTree = "<group>";
+		};
+		A68213472DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HaptiDrum_iPhone_v1UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A68213212DBB0146009B65B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A68213372DBB0147009B65B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A68213412DBB0147009B65B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A682131B2DBB0146009B65B6 = {
+			isa = PBXGroup;
+			children = (
+				A68213262DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */,
+				A682133D2DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests */,
+				A68213472DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests */,
+				A68213252DBB0146009B65B6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A68213252DBB0146009B65B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A68213242DBB0146009B65B6 /* HaptiDrum_iPhone_v1.app */,
+				A682133A2DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests.xctest */,
+				A68213442DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A68213232DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A682134D2DBB0147009B65B6 /* Build configuration list for PBXNativeTarget "HaptiDrum_iPhone_v1" */;
+			buildPhases = (
+				A68213202DBB0146009B65B6 /* Sources */,
+				A68213212DBB0146009B65B6 /* Frameworks */,
+				A68213222DBB0146009B65B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A68213262DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */,
+			);
+			name = HaptiDrum_iPhone_v1;
+			packageProductDependencies = (
+			);
+			productName = HaptiDrum_iPhone_v1;
+			productReference = A68213242DBB0146009B65B6 /* HaptiDrum_iPhone_v1.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A68213392DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A68213522DBB0147009B65B6 /* Build configuration list for PBXNativeTarget "HaptiDrum_iPhone_v1Tests" */;
+			buildPhases = (
+				A68213362DBB0147009B65B6 /* Sources */,
+				A68213372DBB0147009B65B6 /* Frameworks */,
+				A68213382DBB0147009B65B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A682133C2DBB0147009B65B6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A682133D2DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests */,
+			);
+			name = HaptiDrum_iPhone_v1Tests;
+			packageProductDependencies = (
+			);
+			productName = HaptiDrum_iPhone_v1Tests;
+			productReference = A682133A2DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A68213432DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A68213552DBB0147009B65B6 /* Build configuration list for PBXNativeTarget "HaptiDrum_iPhone_v1UITests" */;
+			buildPhases = (
+				A68213402DBB0147009B65B6 /* Sources */,
+				A68213412DBB0147009B65B6 /* Frameworks */,
+				A68213422DBB0147009B65B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A68213462DBB0147009B65B6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A68213472DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests */,
+			);
+			name = HaptiDrum_iPhone_v1UITests;
+			packageProductDependencies = (
+			);
+			productName = HaptiDrum_iPhone_v1UITests;
+			productReference = A68213442DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A682131C2DBB0146009B65B6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					A68213232DBB0146009B65B6 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					A68213392DBB0147009B65B6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = A68213232DBB0146009B65B6;
+					};
+					A68213432DBB0147009B65B6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = A68213232DBB0146009B65B6;
+					};
+				};
+			};
+			buildConfigurationList = A682131F2DBB0146009B65B6 /* Build configuration list for PBXProject "HaptiDrum_iPhone_v1" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A682131B2DBB0146009B65B6;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A68213252DBB0146009B65B6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A68213232DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */,
+				A68213392DBB0147009B65B6 /* HaptiDrum_iPhone_v1Tests */,
+				A68213432DBB0147009B65B6 /* HaptiDrum_iPhone_v1UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A68213222DBB0146009B65B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A68213382DBB0147009B65B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A68213422DBB0147009B65B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A68213202DBB0146009B65B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A68213362DBB0147009B65B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A68213402DBB0147009B65B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A682133C2DBB0147009B65B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A68213232DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */;
+			targetProxy = A682133B2DBB0147009B65B6 /* PBXContainerItemProxy */;
+		};
+		A68213462DBB0147009B65B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A68213232DBB0146009B65B6 /* HaptiDrum_iPhone_v1 */;
+			targetProxy = A68213452DBB0147009B65B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A682134E2DBB0147009B65B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TU3CYP47QH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HaptiDrum_iPhone_v1/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HaptiDrum;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We use Bluetooth to connect to HaptiDrum peripherals.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uw.cse475.HaptiDrum-iPhone-v1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A682134F2DBB0147009B65B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TU3CYP47QH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HaptiDrum_iPhone_v1/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HaptiDrum;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We use Bluetooth to connect to HaptiDrum peripherals.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uw.cse475.HaptiDrum-iPhone-v1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A68213502DBB0147009B65B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A68213512DBB0147009B65B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A68213532DBB0147009B65B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TU3CYP47QH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uw.cse475.HaptiDrum-iPhone-v1Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaptiDrum_iPhone_v1.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HaptiDrum_iPhone_v1";
+			};
+			name = Debug;
+		};
+		A68213542DBB0147009B65B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TU3CYP47QH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uw.cse475.HaptiDrum-iPhone-v1Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaptiDrum_iPhone_v1.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HaptiDrum_iPhone_v1";
+			};
+			name = Release;
+		};
+		A68213562DBB0147009B65B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TU3CYP47QH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uw.cse475.HaptiDrum-iPhone-v1UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HaptiDrum_iPhone_v1;
+			};
+			name = Debug;
+		};
+		A68213572DBB0147009B65B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TU3CYP47QH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "uw.cse475.HaptiDrum-iPhone-v1UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HaptiDrum_iPhone_v1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A682131F2DBB0146009B65B6 /* Build configuration list for PBXProject "HaptiDrum_iPhone_v1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A68213502DBB0147009B65B6 /* Debug */,
+				A68213512DBB0147009B65B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A682134D2DBB0147009B65B6 /* Build configuration list for PBXNativeTarget "HaptiDrum_iPhone_v1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A682134E2DBB0147009B65B6 /* Debug */,
+				A682134F2DBB0147009B65B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A68213522DBB0147009B65B6 /* Build configuration list for PBXNativeTarget "HaptiDrum_iPhone_v1Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A68213532DBB0147009B65B6 /* Debug */,
+				A68213542DBB0147009B65B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A68213552DBB0147009B65B6 /* Build configuration list for PBXNativeTarget "HaptiDrum_iPhone_v1UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A68213562DBB0147009B65B6 /* Debug */,
+				A68213572DBB0147009B65B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A682131C2DBB0146009B65B6 /* Project object */;
+}
