@@ -3,6 +3,7 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 #include <SparkFun_BNO080_Arduino_Library.h>
+#include <Adafruit_DRV2605.h>
 #include <Wire.h>
 
 
@@ -31,6 +32,10 @@ bool deviceConnected = false;
 
 // GPIO pin used to control the indicator LED
 #define LED_PIN 4  // D3 / GPIO4
+
+
+// Motor Driver Configuration
+Adafruit_DRV2605 drv;
 
 // ============================
 // ==== IMU Configuration  ====
@@ -142,17 +147,32 @@ class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
 
     // If received value is "FIND", blink LED for 1 second
     if (rxValue == "FIND") {
-      digitalWrite(LED_PIN, HIGH);
+      drv.setMode(5);
+      
+      drv.setRealtimeValue(127);
       delay(3000);
-      digitalWrite(LED_PIN, LOW);
+      drv.setRealtimeValue(0);
+
+      drv.setMode(0);
     }
 
     // If received value is "CONNECT", blink LED for 3*0.5, to confirm the connection
     if (rxValue == "CONNECT") {
-      digitalWrite(LED_PIN, HIGH);
-      delay(2000);
-      digitalWrite(LED_PIN, LOW);
-      delay(1000);
+      drv.setMode(5);
+
+      drv.setRealtimeValue(127);
+      delay(500);
+      drv.setRealtimeValue(0);
+      delay(500);
+      drv.setRealtimeValue(127);
+      delay(500);
+      drv.setRealtimeValue(0);
+      delay(500);
+      drv.setRealtimeValue(127);
+      delay(500);
+      drv.setRealtimeValue(0);
+
+      drv.setMode(0);
     }
 
     // ✅ Add RESET command handling here
@@ -190,6 +210,20 @@ class MyServerCallbacks : public BLEServerCallbacks {
 void setup() {
   Serial.begin(115200);     // Start serial communication for debug
   Wire.begin();             // Initialize I2C (used by BNO085)
+
+
+  // Initialize Motor Driver
+  if (!drv.begin()) {
+    Serial.println("Failed to initialize DRV2605");
+    while (1);
+  }
+
+  // === 设置为 Real-Time Playback Mode ===
+  drv.setMode(5);  // 0x05 = Real-Time Playback
+
+  // === 设置为 LRA 模式（VL120628H 是 LRA）===
+  drv.useLRA();    // 会设置寄存器 0x1A 第7位为1
+
 
   // ==== Initialize LED ====
   pinMode(LED_PIN, OUTPUT);
