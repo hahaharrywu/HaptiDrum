@@ -96,6 +96,12 @@ class DrumViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupBLEHandler()
+    }
+
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         BLEManager.shared.setDataHandler(nil)
@@ -148,101 +154,6 @@ class DrumViewController: UIViewController {
     }
 
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        BLEManager.shared.setDataHandler { [weak self] peripheral, data in
-            guard let self = self else { return }
-            guard let name = peripheral.name, self.deviceNames.contains(name) else { return }
-
-            // ...保留你原来的处理逻辑
-            let yaw = (data["yaw"] as? NSNumber)?.doubleValue ?? 0
-            let pitch = (data["pitch"] as? NSNumber)?.doubleValue ?? 0
-            let roll = (data["roll"] as? NSNumber)?.doubleValue ?? 0
-            let gx = (data["gx"] as? NSNumber)?.doubleValue ?? 0
-            let gy = (data["gy"] as? NSNumber)?.doubleValue ?? 0
-            let gz = (data["gz"] as? NSNumber)?.doubleValue ?? 0
-
-            guard var device = self.imuDevices[name] else { return }
-
-            if device.isCollectingBaseline {
-                device.yawArray.append(yaw)
-                device.pitchArray.append(pitch)
-                device.rollArray.append(roll)
-            }
-
-            let adjYaw = yaw - device.baselineYaw
-            let adjPitch = pitch - device.baselinePitch
-            let adjRoll = roll - device.baselineRoll
-
-            device.gx = gx
-            device.gy = gy
-            device.gz = gz
-
-            let isHand = name.contains("Hand")
-            let inRange: Bool = isHand
-                ? abs(adjPitch) < 5 && abs(adjRoll) < 5 && abs(adjYaw) < 5
-                : abs(adjPitch) < 20 && abs(adjRoll) < 20
-
-            if inRange && !device.inHitZone {
-                print("[\(name)] 🥁 Drum Hit Detected!")
-                device.inHitZone = true
-
-                if let peripheral = BLEManager.shared.connectedPeripherals.first(where: { $0.name == name }) {
-                    let playCommand = BLECommand(type: "PLAY", payload: nil)
-                    BLEManager.shared.sendCommand(playCommand, to: peripheral)
-                    print("[\(name)] 📡 Sent PLAY to peripheral")
-                }
-
-                let soundMap: [String: URL?] = [
-                    "HaptiDrum_Hand_R": drumURL,
-                    "HaptiDrum_Hand_L": drum2URL,
-                    "HaptiDrum_Foot_R": kickDrumURL,
-                    "HaptiDrum_Foot_L": hiHatURL
-                ]
-
-                if let soundURL = soundMap[name] ?? nil {
-                    self.playSound(from: soundURL)
-                }
-
-                if let imageView = self.drumImageViews[name] {
-                    DispatchQueue.main.async {
-                        switch name {
-                        case "HaptiDrum_Foot_R":
-                            imageView.image = UIImage(named: "kickDrum_on")
-                        case "HaptiDrum_Hand_R":
-                            imageView.image = UIImage(named: "drum_on")
-                        case "HaptiDrum_Hand_L":
-                            imageView.image = UIImage(named: "drum2_on")
-                        default:
-                            break
-                        }
-                    }
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        switch name {
-                        case "HaptiDrum_Foot_R":
-                            imageView.image = UIImage(named: "kickDrum_off")
-                        case "HaptiDrum_Hand_R":
-                            imageView.image = UIImage(named: "drum_off")
-                        case "HaptiDrum_Hand_L":
-                            imageView.image = UIImage(named: "drum2_off")
-                        default:
-                            break
-                        }
-                    }
-                }
-
-            } else if !inRange {
-                device.inHitZone = false
-            }
-
-            self.imuDevices[name] = device
-        }
-    }
-
-
-    
     func playSound(from url: URL?) {
         guard let url = url else { return }
         do {
@@ -285,8 +196,97 @@ class DrumViewController: UIViewController {
             playSound(from: soundURL)
         }
     }
-
     
+    private func setupBLEHandler() {
+        BLEManager.shared.onDataReceived = { [weak self] peripheral, data in
+            guard let self = self else { return }
+            guard let name = peripheral.name, self.deviceNames.contains(name) else { return }
+
+            let yaw = (data["yaw"] as? NSNumber)?.doubleValue ?? 0
+            let pitch = (data["pitch"] as? NSNumber)?.doubleValue ?? 0
+            let roll = (data["roll"] as? NSNumber)?.doubleValue ?? 0
+            let gx = (data["gx"] as? NSNumber)?.doubleValue ?? 0
+            let gy = (data["gy"] as? NSNumber)?.doubleValue ?? 0
+            let gz = (data["gz"] as? NSNumber)?.doubleValue ?? 0
+
+            guard var device = self.imuDevices[name] else { return }
+
+            if device.isCollectingBaseline {
+                device.yawArray.append(yaw)
+                device.pitchArray.append(pitch)
+                device.rollArray.append(roll)
+            }
+
+            let adjYaw = yaw - device.baselineYaw
+            let adjPitch = pitch - device.baselinePitch
+            let adjRoll = roll - device.baselineRoll
+
+            device.gx = gx
+            device.gy = gy
+            device.gz = gz
+
+            let isHand = name.contains("Hand")
+            let inRange: Bool = isHand
+                ? abs(adjPitch) < 5 && abs(adjRoll) < 5 && abs(adjYaw) < 5
+                : abs(adjPitch) < 5 && abs(adjRoll) < 5
+
+            if inRange && !device.inHitZone {
+                print("[\(name)] 🥁 Drum Hit Detected!")
+                device.inHitZone = true
+
+                if let peripheral = BLEManager.shared.connectedPeripherals.first(where: { $0.name == name }) {
+                    let playCommand = BLECommand(type: "PLAY", payload: nil)
+                    BLEManager.shared.sendCommand(playCommand, to: peripheral)
+                    print("[\(name)] 📡 Sent PLAY to peripheral")
+                }
+
+                let soundMap: [String: URL?] = [
+                    "HaptiDrum_Hand_R": self.drumURL,
+                    "HaptiDrum_Hand_L": self.drum2URL,
+                    "HaptiDrum_Foot_R": self.kickDrumURL,
+                    "HaptiDrum_Foot_L": self.hiHatURL
+                ]
+
+                if let soundURL = soundMap[name] ?? nil {
+                    self.playSound(from: soundURL)
+                }
+
+                if let imageView = self.drumImageViews[name] {
+                    DispatchQueue.main.async {
+                        switch name {
+                        case "HaptiDrum_Foot_R":
+                            imageView.image = UIImage(named: "kickDrum_on")
+                        case "HaptiDrum_Hand_R":
+                            imageView.image = UIImage(named: "drum_on")
+                        case "HaptiDrum_Hand_L":
+                            imageView.image = UIImage(named: "drum2_on")
+                        default:
+                            break
+                        }
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        switch name {
+                        case "HaptiDrum_Foot_R":
+                            imageView.image = UIImage(named: "kickDrum_off")
+                        case "HaptiDrum_Hand_R":
+                            imageView.image = UIImage(named: "drum_off")
+                        case "HaptiDrum_Hand_L":
+                            imageView.image = UIImage(named: "drum2_off")
+                        default:
+                            break
+                        }
+                    }
+                }
+
+            } else if !inRange {
+                device.inHitZone = false
+            }
+
+            self.imuDevices[name] = device
+        }
+    }
+
 
     
 }

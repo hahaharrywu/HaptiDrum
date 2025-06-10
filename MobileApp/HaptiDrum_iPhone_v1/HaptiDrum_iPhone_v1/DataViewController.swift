@@ -36,9 +36,14 @@ class DataViewController: UIViewController {
             "HaptiDrum_Hand_L": handLLabel,
             "HaptiDrum_Hand_R": handRLabel
         ]
+    }
 
-        // 监听 BLE 数据
-        BLEManager.shared.onDataReceived = { [weak self] peripheral, data in
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        print("✅ DataViewController set BLE handler")
+
+        BLEManager.shared.setDataHandler { [weak self] peripheral, data in
             guard let self = self,
                   let name = peripheral.name,
                   let label = self.labelMap[name] else { return }
@@ -64,9 +69,11 @@ class DataViewController: UIViewController {
             }
         }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        print("❌ DataViewController cleared BLE handler")
         BLEManager.shared.setDataHandler(nil)
     }
 }
