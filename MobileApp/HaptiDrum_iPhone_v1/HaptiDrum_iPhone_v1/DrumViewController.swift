@@ -96,6 +96,12 @@ class DrumViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        BLEManager.shared.setDataHandler(nil)
+    }
+
+    
     
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -142,14 +148,14 @@ class DrumViewController: UIViewController {
     }
 
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-        BLEManager.shared.onDataReceived = { [weak self] peripheral, data in
+        BLEManager.shared.setDataHandler { [weak self] peripheral, data in
             guard let self = self else { return }
             guard let name = peripheral.name, self.deviceNames.contains(name) else { return }
 
-            // 提取数据（默认值设为0以避免崩溃）
+            // ...保留你原来的处理逻辑
             let yaw = (data["yaw"] as? NSNumber)?.doubleValue ?? 0
             let pitch = (data["pitch"] as? NSNumber)?.doubleValue ?? 0
             let roll = (data["roll"] as? NSNumber)?.doubleValue ?? 0
@@ -169,22 +175,19 @@ class DrumViewController: UIViewController {
             let adjPitch = pitch - device.baselinePitch
             let adjRoll = roll - device.baselineRoll
 
-            // 保存加速度（未来用于音量控制）
             device.gx = gx
             device.gy = gy
             device.gz = gz
 
-            // 分类处理手或脚设备的条件判断
             let isHand = name.contains("Hand")
             let inRange: Bool = isHand
                 ? abs(adjPitch) < 5 && abs(adjRoll) < 5 && abs(adjYaw) < 5
-                : abs(adjPitch) < 5 && abs(adjRoll) < 5
+                : abs(adjPitch) < 20 && abs(adjRoll) < 20
 
             if inRange && !device.inHitZone {
                 print("[\(name)] 🥁 Drum Hit Detected!")
                 device.inHitZone = true
-                
-                // 发送 PLAY 指令
+
                 if let peripheral = BLEManager.shared.connectedPeripherals.first(where: { $0.name == name }) {
                     let playCommand = BLECommand(type: "PLAY", payload: nil)
                     BLEManager.shared.sendCommand(playCommand, to: peripheral)
@@ -212,7 +215,7 @@ class DrumViewController: UIViewController {
                         case "HaptiDrum_Hand_L":
                             imageView.image = UIImage(named: "drum2_on")
                         default:
-                            break // hi-hat 不变图
+                            break
                         }
                     }
 
@@ -236,8 +239,8 @@ class DrumViewController: UIViewController {
 
             self.imuDevices[name] = device
         }
-
     }
+
 
     
     func playSound(from url: URL?) {

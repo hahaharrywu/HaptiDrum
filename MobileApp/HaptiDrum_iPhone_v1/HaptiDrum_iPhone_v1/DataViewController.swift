@@ -64,4 +64,9 @@ class DataViewController: UIViewController {
             }
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        BLEManager.shared.setDataHandler(nil)
+    }
 }

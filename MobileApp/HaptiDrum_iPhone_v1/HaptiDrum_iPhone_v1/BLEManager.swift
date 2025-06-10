@@ -148,27 +148,24 @@ class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         var state = peripheralCommandMap[name] ?? PeripheralCommandState()
 
         for char in characteristics {
-            // Enable notifications if supported
             if char.properties.contains(.notify) {
                 peripheral.setNotifyValue(true, for: char)
                 print("Subscribed to notifications from \(name)")
             }
 
-            // Save characteristic for future write operations
             if char.properties.contains(.write) {
                 state.characteristic = char
-
                 if let command = state.pendingCommand,
                    let data = command.toData() {
                     peripheral.writeValue(data, for: char, type: .withResponse)
                     print("Sent cached command via discovery: \(command.type) to \(name)")
                     state.pendingCommand = nil
                 }
-
                 peripheralCommandMap[name] = state
             }
         }
     }
+
 
     
     // MARK: - Receiving Notification Data
@@ -200,7 +197,7 @@ class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 //    }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-//        print("🔔 didUpdateValueFor fired from \(peripheral.name ?? "Unknown")")
+        print("🔔 got BLE update from \(peripheral.name ?? "Unknown")")
 
         guard let data = characteristic.value,
               let string = String(data: data, encoding: .utf8) else {
@@ -263,7 +260,13 @@ class BLEManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
 
 
+    func setDataHandler(_ handler: ((CBPeripheral, [String: Any]) -> Void)?) {
+        self.onDataReceived = handler
+    }
 
 
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        print("📣 Notify updated: \(characteristic.uuid), isNotifying: \(characteristic.isNotifying)")
+    }
 
 }
