@@ -48,6 +48,7 @@ void setup() {
     drv.setMode(DRV2605_MODE_REALTIME);
     drv.useLRA();
     drv.setRealtimeValue(0);
+    drv.setMode(0);
   }
 
   // ==== Initialize BLE ====
@@ -85,6 +86,9 @@ void loop() {
   float pitch = atan2(-ax, sqrt(ay * ay + az * az)) * 180.0 / PI;
   float roll  = atan2(ay, az) * 180.0 / PI;
 
+  float gx = myIMU.readFloatGyroX();
+  float gy = myIMU.readFloatGyroY();
+
   // send pitch/roll every 50ms
   // if (deviceConnected && millis() - lastSend > 50) {
   //   char buf[100];
@@ -98,7 +102,8 @@ void loop() {
   if (deviceConnected && customChar.notifyEnabled() && millis() - lastSend > 50) {
   char buf[100];
   snprintf(buf, sizeof(buf),
-          "{\"pitch\": %.2f, \"roll\": %.2f}", pitch, roll);
+          "{\"pitch\": %.2f, \"roll\": %.2f, \"gx\": %.2f, \"gy\": %.2f}",
+          pitch, roll, gx, gy);
   customChar.notify((uint8_t*)buf, strlen(buf));
   Serial.println("✅ Sent: " + String(buf));
   lastSend = millis();
@@ -106,7 +111,7 @@ void loop() {
 } else if (deviceConnected && !customChar.notifyEnabled()) {
   static unsigned long lastWarn = 0;
   if (millis() - lastWarn > 3000) {
-    Serial.println("⚠️ iOS has NOT subscribed to notify. Skipping send.");
+    Serial.println("iOS has NOT subscribed to notify. Skipping send.");
     lastWarn = millis();
   }
 }
@@ -138,23 +143,30 @@ void write_callback(uint16_t conn_hdl, BLECharacteristic* chr, uint8_t* data, ui
 
   if (received == "FIND") {
     Serial.println("FIND command received -> Vibrate!");
+
+    drv.setMode(5);
     drv.setRealtimeValue(100);
     delay(1000);
     drv.setRealtimeValue(0);
+    drv.setMode(0);
+
   } else if (received == "CONNECT") {
     Serial.println("CONNECT command received -> Vibrate x2!");
-    for (int i = 0; i < 3; i++) {
-      drv.setRealtimeValue(100);
-      delay(300);
-      drv.setRealtimeValue(0);
-      delay(300);
-    }
+    drv.setMode(5);
+      for (int i = 0; i < 3; i++) {
+        drv.setRealtimeValue(100);
+        delay(300);
+        drv.setRealtimeValue(0);
+        delay(300);
+      }
+    drv.setMode(0);
+
   } else if (received == "RESET") {
     Serial.println("RESET command received -> Resetting IMU");
 
     // stop i2c
-    Wire.end(); delay(10);
-    Wire.begin(); delay(10);
+    Wire.end(); delay(100);
+    Wire.begin(); delay(100);
 
     // reinitialize IMU
     if (myIMU.begin() != 0) {
