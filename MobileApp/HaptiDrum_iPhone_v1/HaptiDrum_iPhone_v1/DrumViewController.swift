@@ -22,7 +22,13 @@ struct IMUDevice {
     var rollArray = [Double]()
 
     var inHitZone: Bool = false
+
+    // For future volume use
+    var gx: Double = 0
+    var gy: Double = 0
+    var gz: Double = 0
 }
+
 
 
 class DrumViewController: UIViewController {
@@ -143,19 +149,13 @@ class DrumViewController: UIViewController {
             guard let self = self else { return }
             guard let name = peripheral.name, self.deviceNames.contains(name) else { return }
 
-//            guard let yaw = (data["yaw"] as? NSNumber)?.doubleValue,
-//                  let pitch = (data["pitch"] as? NSNumber)?.doubleValue,
-//                  let roll = (data["roll"] as? NSNumber)?.doubleValue,
-//                  let gx = (data["gx"] as? NSNumber)?.doubleValue,
-//                  let gy = (data["gy"] as? NSNumber)?.doubleValue,
-//                  let gz = (data["gz"] as? NSNumber)?.doubleValue else { return }
+            // 提取数据（默认值设为0以避免崩溃）
             let yaw = (data["yaw"] as? NSNumber)?.doubleValue ?? 0
             let pitch = (data["pitch"] as? NSNumber)?.doubleValue ?? 0
             let roll = (data["roll"] as? NSNumber)?.doubleValue ?? 0
             let gx = (data["gx"] as? NSNumber)?.doubleValue ?? 0
             let gy = (data["gy"] as? NSNumber)?.doubleValue ?? 0
             let gz = (data["gz"] as? NSNumber)?.doubleValue ?? 0
-
 
             guard var device = self.imuDevices[name] else { return }
 
@@ -169,31 +169,57 @@ class DrumViewController: UIViewController {
             let adjPitch = pitch - device.baselinePitch
             let adjRoll = roll - device.baselineRoll
 
+            // 保存加速度（未来用于音量控制）
+            device.gx = gx
+            device.gy = gy
+            device.gz = gz
 
-            let inRange = abs(adjPitch) < 5 && abs(adjRoll) < 5
+            // 分类处理手或脚设备的条件判断
+            let isHand = name.contains("Hand")
+            let inRange: Bool = isHand
+                ? abs(adjPitch) < 5 && abs(adjRoll) < 5 && abs(adjYaw) < 5
+                : abs(adjPitch) < 5 && abs(adjRoll) < 5
 
             if inRange && !device.inHitZone {
                 print("[\(name)] 🥁 Drum Hit Detected!")
                 device.inHitZone = true
-                
+
                 let soundMap: [String: URL?] = [
                     "HaptiDrum_Hand_R": drumURL,
-                    "HaptiDrum_Foot_R": kickDrumURL
+                    "HaptiDrum_Hand_L": drum2URL,
+                    "HaptiDrum_Foot_R": kickDrumURL,
+                    "HaptiDrum_Foot_L": hiHatURL
                 ]
 
                 if let soundURL = soundMap[name] ?? nil {
-                    playSound(from: soundURL)
+                    self.playSound(from: soundURL)
                 }
-
-
 
                 if let imageView = self.drumImageViews[name] {
                     DispatchQueue.main.async {
-                        imageView.image = UIImage(named: imageView == self.kickDrumImageView ? "kickDrum_on" : "drum_on")
+                        switch name {
+                        case "HaptiDrum_Foot_R":
+                            imageView.image = UIImage(named: "kickDrum_on")
+                        case "HaptiDrum_Hand_R":
+                            imageView.image = UIImage(named: "drum_on")
+                        case "HaptiDrum_Hand_L":
+                            imageView.image = UIImage(named: "drum2_on")
+                        default:
+                            break // hi-hat 不变图
+                        }
                     }
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        imageView.image = UIImage(named: imageView == self.kickDrumImageView ? "kickDrum_off" : "drum_off")
+                        switch name {
+                        case "HaptiDrum_Foot_R":
+                            imageView.image = UIImage(named: "kickDrum_off")
+                        case "HaptiDrum_Hand_R":
+                            imageView.image = UIImage(named: "drum_off")
+                        case "HaptiDrum_Hand_L":
+                            imageView.image = UIImage(named: "drum2_off")
+                        default:
+                            break
+                        }
                     }
                 }
 
@@ -203,24 +229,9 @@ class DrumViewController: UIViewController {
 
             self.imuDevices[name] = device
         }
+
     }
 
-    
-//    func loadSound(named name: String) -> AVAudioPlayer? {
-//        guard let url = Bundle.main.url(forResource: name, withExtension: "wav") else {
-//            print("❌ Sound file \(name).wav not found.")
-//            return nil
-//        }
-//
-//        do {
-//            let player = try AVAudioPlayer(contentsOf: url)
-//            player.prepareToPlay()
-//            return player
-//        } catch {
-//            print("❌ Failed to load sound \(name): \(error)")
-//            return nil
-//        }
-//    }
     
     func playSound(from url: URL?) {
         guard let url = url else { return }
