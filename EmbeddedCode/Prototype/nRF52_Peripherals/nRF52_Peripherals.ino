@@ -5,8 +5,8 @@
 
 
 // Device Name
-// #define DEVICE_NAME "HaptiDrum_Foot_L"
-#define DEVICE_NAME "HaptiDrum_Foot_R"
+#define DEVICE_NAME "HaptiDrum_Foot_L"
+// #define DEVICE_NAME "HaptiDrum_Foot_R"
 // #define DEVICE_NAME "HaptiDrum_Hand_L"
 // #define DEVICE_NAME "HaptiDrum_Hand_R"
 
@@ -34,29 +34,29 @@ void setup() {
 
   Wire.begin();
 
-  // ==== 初始化 IMU ====
+  // ==== Initialize IMU ====
   if (myIMU.begin() != 0) {
     Serial.println("IMU init failed");
   } else {
     Serial.println("IMU ready");
   }
 
-  // ==== 初始化 DRV2605 ====
+  // ==== Initialize DRV2605 ====
   if (!drv.begin()) {
     Serial.println("DRV2605 init failed");
   } else {
-    drv.setMode(DRV2605_MODE_REALTIME); // 实时模式
-    drv.useLRA();                       // 设置为 LRA 模式
-    drv.setRealtimeValue(0);         // 默认震动强度
+    drv.setMode(DRV2605_MODE_REALTIME);
+    drv.useLRA();
+    drv.setRealtimeValue(0);
   }
 
-  // ==== 初始化 BLE ====
+  // ==== Initialize BLE ====
   Bluefruit.begin();
   Bluefruit.setName(DEVICE_NAME);
   Bluefruit.Periph.setConnectCallback(connect_callback);
   Bluefruit.Periph.setDisconnectCallback(disconnect_callback);
 
-  // 自定义 BLE Service 和 Characteristic（带 Notify 和 Write）
+  // BLE Service and Characteristic（with Notify and Write）
   customService.begin();
   customChar.setProperties(CHR_PROPS_NOTIFY | CHR_PROPS_WRITE);
   customChar.setPermission(SECMODE_OPEN, SECMODE_OPEN);
@@ -64,7 +64,7 @@ void setup() {
   customChar.setWriteCallback(write_callback);
   customChar.begin();
 
-  // 开始广播
+  // advertising
   Bluefruit.Advertising.addService(customService);
   Bluefruit.Advertising.addName();
   Bluefruit.Advertising.start(0);
@@ -85,7 +85,7 @@ void loop() {
   float pitch = atan2(-ax, sqrt(ay * ay + az * az)) * 180.0 / PI;
   float roll  = atan2(ay, az) * 180.0 / PI;
 
-  // 每 50ms 发送一次 pitch/roll
+  // send pitch/roll every 50ms
   // if (deviceConnected && millis() - lastSend > 50) {
   //   char buf[100];
   //   snprintf(buf, sizeof(buf),
@@ -105,14 +105,14 @@ void loop() {
 
 } else if (deviceConnected && !customChar.notifyEnabled()) {
   static unsigned long lastWarn = 0;
-  if (millis() - lastWarn > 3000) {  // 每 3 秒提示一次
+  if (millis() - lastWarn > 3000) {
     Serial.println("⚠️ iOS has NOT subscribed to notify. Skipping send.");
     lastWarn = millis();
   }
 }
 
 
-  delay(10); // loop 延迟
+  delay(10);
 }
 
 // ===========================
@@ -130,7 +130,6 @@ void disconnect_callback(uint16_t conn_handle, uint8_t reason) {
 
 // ===========================
 // ==== BLE Write Callback ====
-// 接收到命令后触发 DRV2605 震动反馈
 // ===========================
 void write_callback(uint16_t conn_hdl, BLECharacteristic* chr, uint8_t* data, uint16_t len) {
   String received = String((char*)data).substring(0, len);
@@ -153,18 +152,18 @@ void write_callback(uint16_t conn_hdl, BLECharacteristic* chr, uint8_t* data, ui
   } else if (received == "RESET") {
     Serial.println("RESET command received -> Resetting IMU");
 
-    // 停止当前 I2C 通信（可选）
+    // stop i2c
     Wire.end(); delay(10);
     Wire.begin(); delay(10);
 
-    // 重新初始化 IMU
+    // reinitialize IMU
     if (myIMU.begin() != 0) {
       Serial.println("❌ IMU re-init failed");
     } else {
       Serial.println("✅ IMU re-initialized");
     }
 
-    // 重置发送时间，防止卡住
+    // reset send time
     lastSend = millis();
   }
 }

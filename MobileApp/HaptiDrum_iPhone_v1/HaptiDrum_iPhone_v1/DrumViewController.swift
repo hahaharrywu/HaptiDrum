@@ -37,7 +37,6 @@ class DrumViewController: UIViewController {
 
         
 
-    @IBOutlet weak var imuLabel: UILabel!
     @IBOutlet weak var drumImageView: UIImageView!
     @IBOutlet weak var bassDrumImageView: UIImageView!
     
@@ -151,9 +150,6 @@ class DrumViewController: UIViewController {
             let adjPitch = pitch - device.baselinePitch
             let adjRoll = roll - device.baselineRoll
 
-            DispatchQueue.main.async {
-                self.imuLabel.text = String(format: "[%@]\nYaw: %.2f\nPitch: %.2f\nRoll: %.2f\ngx: %.2f\ngy: %.2f\ngz: %.2f", name, adjYaw, adjPitch, adjRoll, gx, gy, gz)
-            }
 
             let inRange = abs(adjPitch) < 5 && abs(adjRoll) < 5
 

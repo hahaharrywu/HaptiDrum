@@ -175,10 +175,10 @@ class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
       drv.setMode(0);
     }
 
-    // ✅ Add RESET command handling here
+    // RESET command handling here
     else if (rxValue == "RESET" || rxValue.indexOf("\"type\":\"RESET\"") >= 0) {
       Serial.println("Received RESET command. Restarting...");
-      delay(200);  // 给 BLE 时间处理完通知
+      delay(200);
       myIMU.enableRotationVector(20);  // Enable 3D orientation (~500Hz, theoretically)
       myIMU.enableGyro(20);            // Angular Velocity 
       Serial.println("BNO085 ready.");
@@ -218,11 +218,8 @@ void setup() {
     while (1);
   }
 
-  // === 设置为 Real-Time Playback Mode ===
-  drv.setMode(5);  // 0x05 = Real-Time Playback
-
-  // === 设置为 LRA 模式（VL120628H 是 LRA）===
-  drv.useLRA();    // 会设置寄存器 0x1A 第7位为1
+  drv.setMode(5);
+  drv.useLRA();
 
 
   // ==== Initialize LED ====
