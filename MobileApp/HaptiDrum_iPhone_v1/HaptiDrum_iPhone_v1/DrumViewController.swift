@@ -183,6 +183,13 @@ class DrumViewController: UIViewController {
             if inRange && !device.inHitZone {
                 print("[\(name)] 🥁 Drum Hit Detected!")
                 device.inHitZone = true
+                
+                // 发送 PLAY 指令
+                if let peripheral = BLEManager.shared.connectedPeripherals.first(where: { $0.name == name }) {
+                    let playCommand = BLECommand(type: "PLAY", payload: nil)
+                    BLEManager.shared.sendCommand(playCommand, to: peripheral)
+                    print("[\(name)] 📡 Sent PLAY to peripheral")
+                }
 
                 let soundMap: [String: URL?] = [
                     "HaptiDrum_Hand_R": drumURL,

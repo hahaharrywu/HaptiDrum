@@ -5,8 +5,8 @@
 
 
 // Device Name
-#define DEVICE_NAME "HaptiDrum_Foot_L"
-// #define DEVICE_NAME "HaptiDrum_Foot_R"
+// #define DEVICE_NAME "HaptiDrum_Foot_L"
+#define DEVICE_NAME "HaptiDrum_Foot_R"
 // #define DEVICE_NAME "HaptiDrum_Hand_L"
 // #define DEVICE_NAME "HaptiDrum_Hand_R"
 
@@ -159,6 +159,14 @@ void write_callback(uint16_t conn_hdl, BLECharacteristic* chr, uint8_t* data, ui
         drv.setRealtimeValue(0);
         delay(300);
       }
+    drv.setMode(0);
+
+  } else if (received == "PLAY") {
+
+    drv.setMode(5);
+    drv.setRealtimeValue(100);
+    delay(300);
+    drv.setRealtimeValue(0);
     drv.setMode(0);
 
   } else if (received == "RESET") {
