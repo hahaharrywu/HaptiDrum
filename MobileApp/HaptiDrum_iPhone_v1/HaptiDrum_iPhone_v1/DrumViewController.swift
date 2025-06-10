@@ -38,12 +38,17 @@ class DrumViewController: UIViewController {
         
 
     @IBOutlet weak var drumImageView: UIImageView!
-    @IBOutlet weak var bassDrumImageView: UIImageView!
+    @IBOutlet weak var kickDrumImageView: UIImageView!
+    @IBOutlet weak var hihatImageView: UIImageView!
+    @IBOutlet weak var drum2ImageView: UIImageView!
+    
     
 //    var drumPlayer: AVAudioPlayer?
-//    var bassDrumPlayer: AVAudioPlayer?
+//    var kickDrumPlayer: AVAudioPlayer?
     var drumURL: URL?
-    var bassDrumURL: URL?
+    var kickDrumURL: URL?
+    var hiHatURL: URL?
+    var drum2URL: URL?
 
 
     
@@ -52,11 +57,15 @@ class DrumViewController: UIViewController {
         
         // 图像设置...
         drumImageView.image = UIImage(named: "drum_off")
-        bassDrumImageView.image = UIImage(named: "bassDrum_off")
+        kickDrumImageView.image = UIImage(named: "kickDrum_off")
+        hihatImageView.image = UIImage(named: "hi-hat")
+        drum2ImageView.image = UIImage(named: "drum2_off")
 
         // 初始化播放器
         drumURL = Bundle.main.url(forResource: "drum", withExtension: "wav")
-        bassDrumURL = Bundle.main.url(forResource: "bassDrum", withExtension: "wav")
+        kickDrumURL = Bundle.main.url(forResource: "kickDrum", withExtension: "wav")
+        hiHatURL = Bundle.main.url(forResource: "hiHat", withExtension: "wav")
+        drum2URL = Bundle.main.url(forResource: "drum2", withExtension: "wav")
 
 
         // 初始化每个设备状态
@@ -66,9 +75,19 @@ class DrumViewController: UIViewController {
 
         // 映射设备名到图像
         drumImageViews = [
+            "HaptiDrum_Hand_L": drum2ImageView,
             "HaptiDrum_Hand_R": drumImageView,
-            "HaptiDrum_Foot_R": bassDrumImageView
+            "HaptiDrum_Foot_L": hihatImageView,
+            "HaptiDrum_Foot_R": kickDrumImageView
         ]
+        
+        // 启用用户交互并添加点击手势
+        for (deviceName, imageView) in drumImageViews {
+            imageView.isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleDrumTap(_:)))
+            imageView.addGestureRecognizer(tap)
+            imageView.tag = deviceNames.firstIndex(of: deviceName) ?? -1  // 用 tag 区分哪个图片
+        }
     }
     
     
@@ -159,7 +178,7 @@ class DrumViewController: UIViewController {
                 
                 let soundMap: [String: URL?] = [
                     "HaptiDrum_Hand_R": drumURL,
-                    "HaptiDrum_Foot_R": bassDrumURL
+                    "HaptiDrum_Foot_R": kickDrumURL
                 ]
 
                 if let soundURL = soundMap[name] ?? nil {
@@ -170,11 +189,11 @@ class DrumViewController: UIViewController {
 
                 if let imageView = self.drumImageViews[name] {
                     DispatchQueue.main.async {
-                        imageView.image = UIImage(named: imageView == self.bassDrumImageView ? "bassDrum_on" : "drum_on")
+                        imageView.image = UIImage(named: imageView == self.kickDrumImageView ? "kickDrum_on" : "drum_on")
                     }
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        imageView.image = UIImage(named: imageView == self.bassDrumImageView ? "bassDrum_off" : "drum_off")
+                        imageView.image = UIImage(named: imageView == self.kickDrumImageView ? "kickDrum_off" : "drum_off")
                     }
                 }
 
@@ -223,9 +242,29 @@ class DrumViewController: UIViewController {
     }
 
 
+    
+    @objc func handleDrumTap(_ sender: UITapGestureRecognizer) {
+        guard let tappedView = sender.view else { return }
 
-    
-    
+        let index = tappedView.tag
+        guard index >= 0 && index < deviceNames.count else { return }
+
+        let deviceName = deviceNames[index]
+        print("[\(deviceName)] 🖱️ Image tapped")
+
+        // 播放对应音效
+        let soundMap: [String: URL?] = [
+            "HaptiDrum_Hand_R": drumURL,
+            "HaptiDrum_Hand_L": drum2URL,
+            "HaptiDrum_Foot_R": kickDrumURL,
+            "HaptiDrum_Foot_L": hiHatURL
+        ]
+
+        if let soundURL = soundMap[deviceName] ?? nil {
+            playSound(from: soundURL)
+        }
+    }
+
     
 
     
