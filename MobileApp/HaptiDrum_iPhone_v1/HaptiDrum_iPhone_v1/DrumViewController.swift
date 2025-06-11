@@ -198,7 +198,7 @@ class DrumViewController: UIViewController {
     }
     
     private func setupBLEHandler() {
-        BLEManager.shared.onDataReceived = { [weak self] peripheral, data in
+        BLEManager.shared.setDataHandler { [weak self] peripheral, data in
             guard let self = self else { return }
             guard let name = peripheral.name, self.deviceNames.contains(name) else { return }
 
@@ -227,8 +227,8 @@ class DrumViewController: UIViewController {
 
             let isHand = name.contains("Hand")
             let inRange: Bool = isHand
-                ? abs(adjPitch) < 5 && abs(adjRoll) < 5 && abs(adjYaw) < 5
-                : abs(adjPitch) < 5 && abs(adjRoll) < 5
+                ? abs(adjPitch) < 20 && abs(adjRoll) < 20 && abs(adjYaw) < 20
+                : abs(adjPitch) < 20 && abs(adjRoll) < 20
 
             if inRange && !device.inHitZone {
                 print("[\(name)] 🥁 Drum Hit Detected!")
